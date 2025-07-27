@@ -1,0 +1,44 @@
+#+TITLE: Todo App Requirements 1-1 Implementation Note
+
+* 1. 프로젝트 초기 설정
+** 어떤 종류의 React 프로젝트를 생성할까요? (예: Create React App, Vite, Next.js 등)
+- Next.js: `npx create-next-app@latest todo-app --typescript --eslint --app --src-dir --import-alias "@/*" --no-tailwind --no-turbopack` 명령어를 사용하여 Next.js 프로젝트를 생성했습니다.
+
+** TypeScript를 사용할까요, 아니면 JavaScript를 사용할까요?
+- TypeScript: 프로젝트 생성 시 `--typescript` 옵션을 사용하여 TypeScript를 적용했습니다.
+
+* 2. Todo 항목의 데이터 구조
+** 각 Todo 항목은 어떤 정보를 포함해야 할까요? (예: 내용(text), 완료 여부(completed), 고유 ID(id) 외에 추가적으로 필요한 정보가 있을까요?)
+- 내용(text), 완료여부(completed), 고유 ID(id): `src/app/page.tsx` 파일 내 `TodoItem` 인터페이스에 `id: number`, `text: string`, `completed: boolean`으로 정의하여 구현했습니다. `id`는 `Date.now()`를 사용하여 고유성을 확보했습니다.
+
+* 3. 기능별 상세 요구사항
+** 할일 등록:
+*** 새로운 할일을 추가할 때 입력 필드는 어떤 형태가 좋을까요? (텍스트 입력만, 아니면 다른 옵션도?)
+- 텍스트입력: Material UI의 `TextField` 컴포넌트를 사용하여 텍스트 입력 필드를 구현했습니다.
+*** 할일 추가 버튼은 어디에 위치할까요?
+- 검색창 오른쪽에 검색 버튼 오른쪽에 위치: `TextField` 옆에 Material UI의 `Button` 컴포넌트를 사용하여 'Add' 버튼을 배치했습니다.
+
+** 할일 조회:
+*** 할일 목록은 어떤 순서로 정렬되어야 할까요? (최신순, 오래된 순, 완료 여부 등)
+- 최신순, 오래된 순, 완료 여부 모두 정렬이 가능해야함: Material UI의 `Select` 컴포넌트를 사용하여 'Sort By' 드롭다운을 구현했습니다. `useState`와 `useMemo` 훅을 사용하여 선택된 정렬 기준(`latest`, `oldest`, `completed_first`, `uncompleted_first`)에 따라 `todos` 배열을 정렬하도록 로직을 구현했습니다.
+*** 완료된 할일과 미완료된 할일을 시각적으로 구분해서 보여줄까요? (예: 체크박스, 다른 색상, 취소선)
+- 완료되면 글씨를 회색으로 바꿈, 체크박스 체크됨: 각 `ListItem`에 Material UI의 `Checkbox` 컴포넌트를 사용하여 완료 여부를 표시하고 토글할 수 있도록 했습니다. `sx` prop을 사용하여 `completed` 상태에 따라 텍스트에 취소선(`line-through`)과 회색(`text.secondary`)을 적용했습니다.
+*** 모든 할일, 완료된 할일, 미완료된 할일을 필터링해서 볼 수 있는 기능이 필요할까요?
+- 필요: Material UI의 `ButtonGroup` 컴포넌트를 사용하여 'All', 'Active', 'Completed' 필터 버튼을 구현했습니다. `useState`와 `useMemo` 훅을 사용하여 선택된 필터에 따라 `todos` 배열을 필터링하도록 로직을 구현했습니다.
+
+** 할일 삭제:
+*** 할일을 삭제하는 방법은 무엇일까요? (버튼, 스와이프 등)
+- 스와이프, 각 할일 옆에 햄버거 메뉴 달고 거기에 삭제 버튼 위치시키기 (추후에 여기 추가 적인 기능 들어갈 예정): 각 할일 항목 옆에 Material UI의 `IconButton`과 `DeleteIcon`을 사용하여 삭제 버튼을 구현했습니다. 스와이프 기능은 현재 구현 범위에서 제외되었습니다.
+- 벌크 삭제도 가능해야함: 각 할일 항목에 개별 선택을 위한 `Checkbox`를 추가하고, 선택된 항목이 있을 때 활성화되는 'Delete Selected' 버튼을 구현했습니다. `selectedTodoIds` 상태를 사용하여 선택된 항목들을 관리하고, 이 상태에 따라 벌크 삭제를 처리합니다.
+*** 삭제 시 사용자에게 확인 메시지를 보여줄까요?
+- 컨펌 메시지 띄움: 단일 삭제 및 벌크 삭제 시 Material UI의 `Dialog` 컴포넌트를 사용하여 사용자에게 확인 메시지를 표시하고, 'Confirm' 또는 'Cancel' 버튼을 통해 작업을 최종 결정하도록 구현했습니다.
+
+* 4. 사용자 인터페이스 (UI) / 사용자 경험 (UX)
+** 전반적인 디자인 테마나 스타일 가이드가 있을까요? (예: Material Design, Ant Design, Bootstrap, 또는 특정 색상 팔레트)
+- Material Design: Material UI 라이브러리를 사용하여 컴포넌트와 스타일을 적용했습니다. `src/theme.ts` 파일에 기본 Material UI 테마를 정의하고 `src/components/ThemeRegistry.tsx`를 통해 애플리케이션에 적용했습니다.
+** 반응형 디자인이 필요할까요? (모바일/태블릿에서도 잘 보이도록)
+- 필요함: Material UI 컴포넌트들은 기본적으로 반응형 디자인을 지원합니다. `Container` 컴포넌트의 `maxWidth` prop 등을 사용하여 기본적인 반응형 레이아웃을 구성했습니다. (세부적인 반응형 중단점 테스트는 수동 테스트 계획에 포함됩니다.)
+
+* 기타 구현 사항
+- **테스트 환경 설정**: Jest와 `@testing-library/react`를 사용하여 테스트 환경을 설정하고 TDD 원칙에 따라 각 기능에 대한 테스트 코드를 작성했습니다.
+- **하이드레이션 오류**: `className="gbx-installed"`와 관련된 하이드레이션 오류는 브라우저 확장 프로그램으로 인한 것으로 판단되어, 개발 환경에서는 무시하고 진행했습니다. 프로덕션 빌드에는 영향을 미치지 않을 것으로 예상됩니다.

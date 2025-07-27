@@ -1,0 +1,25 @@
+* TODO App
+
+This is a simple Todo application built with React. It allows users to add, delete, and view todo items. The application manages its state in memory without a separate database.
+
+** How to Run
+
+1.  **Install Dependencies**:
+    #+begin_src bash
+    npm install
+    #+end_src
+
+2.  **Start the Development Server**:
+    #+begin_src bash
+    npm run dev
+    #+end_src
+
+    The application will be accessible at `http://localhost:3000` (or another port if 3000 is in use).
+
+** Documentation
+
+- [[file:documents/conversation_summary.html][Conversation Summary]]
+- [[file:documents/requirements_summary.org][Requirements Summary]]
+- [[file:documents/requirements/][Detailed Requirements]]
+- [[file:documents/test_plans/][Test Plans]]
+- [[file:documents/Processing_Records/][Processing Records]]

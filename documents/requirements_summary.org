@@ -1,0 +1,17 @@
+#+TITLE: Todo App Requirements Summary
+
+* Requirements
+** 1-1 Requirements
+*** [[file:requirements/requirements_1-1.org][Todo App Requirements 1-1]]
+*** [[file:requirements/requirements_1-1_implementation_note.org][Todo App Requirements 1-1 Implementation Note]]
+
+* Test Plans
+** 1-1 Test Plan
+*** Linked to: [[file:requirements/requirements_1-1.org][Todo App Requirements 1-1]]
+*** [[file:test_plans/requirements_1-1_test_plan.org][Todo App Manual Test Plan 1-1]]
+
+* Used prompts
+** GEMINI.md 파일 만들라고 명령
+** --TODO-- 앱을 만드는데 필요한 질문들을 정리해서 org file로 만들라고 명령
+*** 거기에 답변을 달았음.
+*** 그리고 이 다음부터는 요구사항을 새로운 org file로 만들고 그것들의 링크를 다 만들어라고 이야기 함
